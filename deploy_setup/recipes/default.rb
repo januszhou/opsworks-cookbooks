@@ -12,7 +12,6 @@ node[:deploy].each do |application, deploy|
     mode '0644'
     variables(
       :application_name => application_name,
-      :environment => OpsWorks::Escape.escape_double_quotes(environment_variables),
       :docroot => '/srv/www/html'
     )
     if ::File.exists?("#{node[:apache][:dir]}/sites-enabled/#{application_name}.conf")
