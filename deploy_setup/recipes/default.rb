@@ -12,7 +12,10 @@ node[:deploy].each do |application, deploy|
     mode '0644'
     variables(
       :application_name => application_name,
-      :docroot => '/srv/www/html'
+      :docroot => '/srv/www/html',
+      :server_name => '127.0.0.1',
+      :rewrite_config => "#{node[:apache][:dir]}/sites-available/#{application_name}.conf.d/rewrite"
+      :local_config => "#{node[:apache][:dir]}/sites-available/#{application_name}.conf.d/local"
     )
     if ::File.exists?("#{node[:apache][:dir]}/sites-enabled/#{application_name}.conf")
       notifies :reload, "service[apache2]", :delayed
