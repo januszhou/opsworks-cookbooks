@@ -6,7 +6,7 @@ node[:deploy].each do |application, deploy|
   template "#{node[:apache][:dir]}/sites-enabled/default.conf" do
     Chef::Log.debug("Generating Apache site template for #{application_name.inspect}")
     group 'root'
-    source 'web_app.erb'
+    source 'web_app.conf.erb'
     owner 'root'
     group 'root'
     mode '0644'
