@@ -21,7 +21,7 @@ node[:deploy].each do |application, deploy|
     mode '0644'
     variables(
       :application_name => application_name,
-      :param => params,
+      :params => params,
       :environment => nil
     )
     if ::File.exists?("#{node[:apache][:dir]}/sites-enabled/#{application_name}.conf")
