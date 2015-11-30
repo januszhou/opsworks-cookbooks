@@ -1,7 +1,25 @@
-Chef::Log.info("******Creating a data directory.******")
 node[:deploy].each do |application, deploy|
-  link '/var/www/skyphp' do
-    to '/srv/www/skyphp'
-    link_type :symbolic
+  application_name = 'default'
+
+  directory "#{node[:apache][:dir]}/sites-available/#{application_name}.conf.d"
+
+  template "#{node[:apache][:dir]}/sites-enabled/default.conf" do
+    Chef::Log.debug("Generating Apache site template for #{application_name.inspect}")
+    group 'root'
+    source 'web_app.erb'
+    owner 'root'
+    group 'root'
+    mode '0644'
+    variables(
+      :application_name => application_name,
+      :environment => OpsWorks::Escape.escape_double_quotes(environment_variables),
+      :docroot => '/srv/www/html'
+    )
+    if ::File.exists?("#{node[:apache][:dir]}/sites-enabled/#{application_name}.conf")
+      notifies :reload, "service[apache2]", :delayed
+    end
+  end
+  apache_site "#{application_name}.conf" do
+    enable enable_setting
   end
 end
