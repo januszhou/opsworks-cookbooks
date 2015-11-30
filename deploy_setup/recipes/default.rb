@@ -1,4 +1,8 @@
 node[:deploy].each do |application, deploy|
+  include_recipe 'apache2'
+  include_recipe 'apache2::mod_rewrite'
+  include_recipe 'apache2::mod_deflate'
+  include_recipe 'apache2::mod_headers'
   application_name = 'default'
 
   directory "#{node[:apache][:dir]}/sites-available/#{application_name}.conf.d"
@@ -14,7 +18,7 @@ node[:deploy].each do |application, deploy|
       :application_name => application_name,
       :docroot => '/srv/www/html',
       :server_name => '127.0.0.1',
-      :rewrite_config => "#{node[:apache][:dir]}/sites-available/#{application_name}.conf.d/rewrite"
+      :rewrite_config => "#{node[:apache][:dir]}/sites-available/#{application_name}.conf.d/rewrite",
       :local_config => "#{node[:apache][:dir]}/sites-available/#{application_name}.conf.d/local"
     )
     if ::File.exists?("#{node[:apache][:dir]}/sites-enabled/#{application_name}.conf")
