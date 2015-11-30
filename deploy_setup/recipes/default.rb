@@ -2,7 +2,14 @@ node[:deploy].each do |application, deploy|
   # remove all existing links
   execute 'mv away all existing virtual host' do
     action :run
-    command "rm #{node[:apache][:dir]}/sites-enabled/*"
+    command "rm -rf #{node[:apache][:dir]}/sites-enabled/*"
+  end
+  # create folder
+  directory "#{node[:apache][:dir]}/sites-enabled" do
+    mode 0755
+    owner 'root'
+    group 'root'
+    action :create
   end
 
   # Create /var/www, and assign it to deploy:www-data
