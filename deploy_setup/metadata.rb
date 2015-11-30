@@ -1,0 +1,5 @@
+name        "deploy_setup"
+description "Create symbolic links and setup /var/www"
+maintainer  "Janus"
+license     "Apache 2.0"
+version     "1.0.0"
