@@ -38,9 +38,11 @@
   IncludeOptional <%= @params[:rewrite_config] %>*
   <% end -%>
 
+  <% if @environment -%>
   <% @environment.each do |key, value| %>
   SetEnv "<%= key %>" "<%= value %>"
   <% end %>
+  <% end -%>
 
   <% if @params[:mounted_at] -%>
   AliasMatch ^<%= @params[:mounted_at] %>/(.*)$ <%= @params[:docroot] %>$1

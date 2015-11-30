@@ -6,6 +6,11 @@ node[:deploy].each do |application, deploy|
   application_name = 'default'
 
   directory "#{node[:apache][:dir]}/sites-available/#{application_name}.conf.d"
+  params[:application_name] = application_name,
+  params[:docroot] = '/srv/www/html',
+  params[:server_name] = '127.0.0.1',
+  params[:rewrite_config] = "#{node[:apache][:dir]}/sites-available/#{application_name}.conf.d/rewrite",
+  params[:local_config] = "#{node[:apache][:dir]}/sites-available/#{application_name}.conf.d/local"
 
   template "#{node[:apache][:dir]}/sites-enabled/default.conf" do
     Chef::Log.debug("Generating Apache site template for #{application_name.inspect}")
@@ -16,10 +21,8 @@ node[:deploy].each do |application, deploy|
     mode '0644'
     variables(
       :application_name => application_name,
-      :docroot => '/srv/www/html',
-      :server_name => '127.0.0.1',
-      :rewrite_config => "#{node[:apache][:dir]}/sites-available/#{application_name}.conf.d/rewrite",
-      :local_config => "#{node[:apache][:dir]}/sites-available/#{application_name}.conf.d/local"
+      :param => params,
+      :environment => nil
     )
     if ::File.exists?("#{node[:apache][:dir]}/sites-enabled/#{application_name}.conf")
       notifies :reload, "service[apache2]", :delayed
