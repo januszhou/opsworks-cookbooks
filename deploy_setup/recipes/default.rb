@@ -54,12 +54,10 @@ node[:deploy].each do |application, deploy|
     enable enable_setting
   end
 
-  link '/var/www/skyphp' do
-    to '/srv/www/skyphp/current'
-  end
-
-  link '/var/www/cms' do
-    to '/srv/www/cms/current'
+  [ "/srv/www/skyphp/current" => 'skyphp', "/srv/www/cms/current" => 'cms'].each do |path, name|
+    link "/var/www/#{name}" do
+      to path
+    end
   end
 
   directory "/var/www" do
