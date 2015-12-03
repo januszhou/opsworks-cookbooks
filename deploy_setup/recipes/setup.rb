@@ -27,6 +27,13 @@ node[:deploy].each do |application, deploy|
   
   fullLists.each do |name, detail|
     if Dir.exists?(base + name) == nil
-      
+      git "/var/www/code/#{name}" do
+        repository detail[:url]
+        revision detail[:branch]
+        action :sync
+      end
     end
+  end
+
+  
 end
