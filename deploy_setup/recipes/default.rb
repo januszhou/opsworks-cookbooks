@@ -57,9 +57,24 @@ node[:deploy].each do |application, deploy|
   {
     "/srv/www/skyphp/current" => "skyphp", 
     "/srv/www/cms/current" => "cms", 
-    "/srv/www/crave-deploy/current" => "crave-deploy", 
-    "/srv/www/crave-event/current" => "crave-event", 
-    "/srv/www/barcrawls/current" => "barcrawls"
+    "/srv/www/crave_deploy/current" => "crave-deploy", 
+    "/srv/www/crave_event/current" => "crave-event", 
+    "/srv/www/crave_inc/current" => "crave-inc",
+    "/srv/www/crave_reseller/current" => "crave-reseller",
+    "/srv/www/crave_sites/current" => "crave-sites",
+    "/srv/www/crave_templates/current" => "crave-templates",
+    "/srv/www/cravetix/current" => "cravetix",
+    "/srv/www/downtowncountdownnet/current" => "downtowncountdown.net",
+    "/srv/www/halloweenpartiescom/current" => "halloweenparties.com",
+    "/srv/www/jb_inc/current" => "jb-inc",
+    "/srv/www/jb_production/current" => "jb-production",
+    "/srv/www/joonbug_v3/current" => "joonbug-v3",
+    "/srv/www/lindys/current" => "lindys",
+    "/srv/www/newyearscom/current" => "newyears.com",
+    "/srv/www/newyearsevecom/current" => "newyearseve.com",
+    "/srv/www/newyearsevecentralcom/current" => "newyearsevecentral.com",
+    "/srv/www/nyephilly/current" => "nyephilly",
+    "/srv/www/timessquarenewyears3/current" => "timessquarenewyears3"
   }.each do |path, name|
     link "/var/www/#{name}" do
       to path
