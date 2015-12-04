@@ -1,9 +1,20 @@
 node[:deploy].each do |application, deploy|
   # Install all necessary dependencies
-  yum_package 'php-gd'
-  yum_package 'php-pgsql'
-  yum_package 'php-memcache'
-  yum_package 'php-memcached'
+  yum_package 'php-gd' do
+    action :upgrade
+  end
+
+  yum_package 'php-pgsql' do
+    action :upgrade
+  end
+
+  yum_package 'php-memcache' do
+    action :upgrade
+  end
+  
+  yum_package 'php-memcached' do
+    action :upgrade
+  end
 
   # Setup php.ini
   # node['php']['directives'] = { :short_open_tag => 'On' , :display_errors => 'On'}
