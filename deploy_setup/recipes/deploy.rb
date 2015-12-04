@@ -23,7 +23,7 @@ node[:deploy].each do |application, deploy|
   }
   Dir.foreach('/var/www/codebases') do |folder|
     next if folder == '.' or folder == '..'
-    git "/var/www/codebase/#{folder}" do
+    git "/var/www/codebases/#{folder}" do
       repository fullLists[folder][:url]
       revision fullLists[folder][:branch]
       action :sync

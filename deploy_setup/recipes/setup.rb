@@ -20,7 +20,7 @@ node[:deploy].each do |application, deploy|
   # node['php']['directives'] = { :short_open_tag => 'On' , :display_errors => 'On'}
 
   # Create folder
-  directory "/var/www/codebase" do
+  directory "/var/www/codebases" do
     mode 0755
     action :create
   end
@@ -61,7 +61,7 @@ node[:deploy].each do |application, deploy|
     content "#!/bin/sh\nexec /usr/bin/ssh -i /root/.ssh/github_private_key \"$@\""
   end
 
-  # Setup everything at /var/www/codebase
+  # Setup everything at /var/www/codebases
   fullLists = {
     'skyphp' => { 'url' => 'git@github.com:SkyPHP/skyphp.git', 'branch' => '3.0-beta' },
     'cms' => { 'url' => 'git@github.com:SkyPHP/cms.git', 'branch' => '3.0' },
@@ -90,7 +90,7 @@ node[:deploy].each do |application, deploy|
   fullLists.each do |name, detail|
     Chef::Log.debug("Processing repository #{name}")
     if Dir.exists?(base + name) == false
-      git "/var/www/codebase/#{name}" do
+      git "#{base}#{name}" do
         repository detail['url']
         revision detail['branch']
         enable_submodules true
