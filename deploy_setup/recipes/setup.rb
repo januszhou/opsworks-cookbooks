@@ -11,7 +11,7 @@ node[:deploy].each do |application, deploy|
   yum_package 'php-memcache' do
     action :upgrade
   end
-  
+
   # yum_package 'php-memcached' do
   #   action :upgrade
   # end
@@ -31,6 +31,11 @@ node[:deploy].each do |application, deploy|
   end
 
   directory "/var/www/html" do
+    mode 0755
+    action :create
+  end
+
+  directory "~/.ssh" do
     mode 0755
     action :create
   end
