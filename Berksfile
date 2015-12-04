@@ -1,0 +1,17 @@
+source "https://supermarket.getchef.com"
+source 'https://supermarket.chef.io'
+
+cookbook 'apt'
+cookbook 'yum'
+cookbook 'bluepill'
+cookbook 'ark'
+cookbook 'build-essential'
+cookbook 'openssl'
+cookbook 'apache2'
+cookbook 'php'
+cookbook 'deploy', path: 'deploy_cookbook'
+cookbook 'phpapp', path: 'phpapp_cookbook'
+cookbook 'mod_php5_apache2', path: 'mod_php5_apache2_cookbook'
+cookbook 'newrelic', path: 'newrelic_cookbook'
+cookbook 'phpmyadmin', path: 'phpmyadmin_cookbook'
+cookbook 'mysql'

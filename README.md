@@ -1,35 +1,31 @@
-opsworks-cookbooks
-==================
+opsworks-php-cookbooks
+==================================
 
-**These are the standard Chef cookbooks used by AWS OpsWorks.**
+AWS OpsWorks custom layer with support for PHP 5.6 and php application deployment. Also contains a centos 6.5 virtual machine using Vagrant that emulate Amazon Linux environment.
 
-If you want to override any template (like the Rails database.yml or the Apache
-vhost definition), this is the place to look for the originals.
+Please make sure to read opsworks user guide before using these cookbooks http://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-chef11-10.html
 
-Branches for current Chef versions
-----------------------------------
+Initial Stack Setup
+=============
 
-These branches are currently used by OpsWorks on your instance.
-
-- **Chef 11.10**: [release-chef-11.10](https://github.com/aws/opsworks-cookbooks/tree/release-chef-11.10)
-- **Chef 11.4**: [release-chef-11.4](https://github.com/aws/opsworks-cookbooks/tree/release-chef-11.4)
-- **Chef 0.9**: [release-chef-0.9](https://github.com/aws/opsworks-cookbooks/tree/release-chef-0.9)
-
-Upcoming changes
-----------------
-
-These branches reflect the upcoming changes for the next release.
-
-- **Chef 11.10**: [master-chef-11.10](https://github.com/aws/opsworks-cookbooks/tree/master-chef-11.10)
-- **Chef 11.4**: [master-chef-11.4](https://github.com/aws/opsworks-cookbooks/tree/master-chef-11.4)
-- **Chef 0.9**: [master-chef-0.9](https://github.com/aws/opsworks-cookbooks/tree/master-chef-0.9)
+1. Add a new stack
+2. Under Advanced Settings:
+   - Pick chef version `11.10` as the chef version
+   - Use custom cookbook pointing to `https://github.com/aporat/opsworks-php-cookbooks.git` (or fork this repo and host it yourself)
+   - Enable "Manage Berkshelf" with `3.2.0` as the version
+3. Add a new `App Server -> PHP Layer` layer. Note that only Amazon Linux AMI is supported. 
+4. Edit the newly created layer, and add the custom recipes:
+  * add phpapp::setup & mysql::client in the setup lifetime event
+  * add phpapp::deploy in the deploy lifetime event
+5. Add a PHP application from the "Applications" section
 
 
-The `master` branch is no longer used since AWS OpsWorks supports multiple
-configuration managers now.
+Vagrant Setup
+=============
 
-See also <https://aws.amazon.com/opsworks/>
-
-LICENSE: Unless otherwise stated, cookbooks/recipes originated by Amazon Web Services are licensed
-under the [Apache 2.0 license](http://aws.amazon.com/apache2.0/). See the LICENSE file. Some files
-are just imported and authored by others. Their license will of course apply.
+1. Download Vagrant 1.6+ from http://www.vagrantup.com
+2. Download latest VirtualBox from https://www.virtualbox.org
+3. Install ChefDK ">= 0.6.0" https://downloads.getchef.com/chef-dk/mac/#/
+3. Install vagrant-omnibus `vagrant plugin install vagrant-omnibus`
+4. Install vagrant-berkshelf `vagrant plugin install vagrant-berkshelf`
+4. Create a new project with the supplied `Vagrantfile` and edit `chef.cookbooks_path` to point to the cookbooks folder
