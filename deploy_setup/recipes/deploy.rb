@@ -22,12 +22,12 @@ node[:deploy].each do |application, deploy|
     'timessquarenewyears3' => { 'url' => 'git@github.com:SkyPHP/timessquarenewyears3.git', 'branch' => 'master' }
   }
   Dir.foreach('/var/www/codebase') do |folder|
-    next if item == '.' or item == '..'
+    next if folder == '.' or folder == '..'
     git "/var/www/codebase/#{folder}" do
       repository fullLists[folder][:url]
       revision fullLists[folder][:branch]
       action :sync
-      ssh_wrapper "ssh -i /root/.ssh/github_private_key"
+      ssh_wrapper "/root/git_wrapper.sh"
     end
   end
 end
