@@ -35,7 +35,7 @@ node[:deploy].each do |application, deploy|
     action :create
   end
 
-  directory "~/.ssh" do
+  directory "/root/.ssh" do
     mode 0755
     action :create
   end
@@ -80,7 +80,7 @@ node[:deploy].each do |application, deploy|
         revision detail[:branch]
         enable_submodules true
         action :sync
-        ssh_wrapper "ssh -i ~/.ssh/github_private_key"
+        ssh_wrapper "ssh -i /root/.ssh/github_private_key"
       end
     end
   end

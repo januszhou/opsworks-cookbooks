@@ -27,7 +27,7 @@ node[:deploy].each do |application, deploy|
       repository fullLists[folder][:url]
       revision fullLists[folder][:branch]
       action :sync
-      ssh_wrapper "ssh -i ~/.ssh/github_private_key"
+      ssh_wrapper "ssh -i /root/.ssh/github_private_key"
     end
   end
 end
