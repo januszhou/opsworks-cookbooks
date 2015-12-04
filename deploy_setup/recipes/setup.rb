@@ -24,6 +24,13 @@ node[:deploy].each do |application, deploy|
     action :create
   end
 
+  # Put ssh key
+  template "~/.ssh/github_private_key" do
+    Chef::Log.debug("Generating private key")
+    source 'github_private_key.erb'
+    mode '0400'
+  end
+
   # Setup everything at /var/www/codebase
   fullLists = {
     'skyphp' => { 'url' => 'git@github.com:SkyPHP/skyphp.git', 'branch' => '3.0-beta' },
@@ -57,6 +64,7 @@ node[:deploy].each do |application, deploy|
         revision detail[:branch]
         enable_submodules true
         action :sync
+        ssh_wrapper "ssh -i ~/.ssh/github_private_key"
       end
     end
   end
