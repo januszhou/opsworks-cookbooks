@@ -1,4 +1,29 @@
 node[:deploy].each do |application, deploy|
+  # Install all necessary dependencies
+  yum_package 'php-gd'
+  yum_package 'php-pgsql'
+  yum_package 'php-memcache'
+  yum_package 'php-memcached'
+
+  # Setup php.ini
+  node['php']['directives'] = { :short_open_tag => 'On' , :display_errors => 'On'}
+
+  # Create folder
+  directory "/var/www/codebase" do
+    mode 0755
+    action :create
+  end
+
+  directory "/var/www/skydata" do
+    mode 0777
+    action :create
+  end
+
+  directory "/var/www/html" do
+    mode 0755
+    action :create
+  end
+
   # Setup everything at /var/www/codebase
   fullLists = {
     'skyphp' => { 'url' => 'git@github.com:SkyPHP/skyphp.git', 'branch' => '3.0-beta' },
@@ -30,10 +55,71 @@ node[:deploy].each do |application, deploy|
       git "/var/www/code/#{name}" do
         repository detail[:url]
         revision detail[:branch]
+        enable_submodules true
         action :sync
       end
     end
   end
 
+  # Create index and link .htaccess
+  template "/var/www/html/index.php" do
+    Chef::Log.debug("Generating index.php")
+    source 'index.php.erb'
+    mode '0754'
+  end
+
+  template "/var/www/html/.htaccess" do
+    Chef::Log.debug("Generating htaccess")
+    source 'htaccess.erb'
+    mode '0777'
+  end
+
+  # Process apache config
+  # remove all existing links
+  execute 'mv away all existing virtual host' do
+    action :run
+    command "rm -rf #{node[:apache][:dir]}/sites-enabled/*"
+  end
+  # create folder
+  directory "#{node[:apache][:dir]}/sites-enabled" do
+    mode 0755
+    owner 'root'
+    group 'root'
+    action :create
+  end
+
+  include_recipe 'apache2'
+  include_recipe 'apache2::mod_rewrite'
+  include_recipe 'apache2::mod_deflate'
+  include_recipe 'apache2::mod_headers'
+  application_name = 'default'
+
+  directory "#{node[:apache][:dir]}/sites-available/#{application_name}.conf.d"
+  params[:application_name] = application_name,
+  params[:docroot] = '/var/www/html',
+  params[:server_name] = '127.0.0.1',
+  params[:rewrite_config] = "#{node[:apache][:dir]}/sites-available/#{application_name}.conf.d/rewrite",
+  params[:local_config] = "#{node[:apache][:dir]}/sites-available/#{application_name}.conf.d/local"
+
+  template "#{node[:apache][:dir]}/sites-enabled/#{application_name}.conf" do
+    Chef::Log.debug("Generating Apache site template for #{application_name.inspect}")
+    group 'root'
+    source 'web_app.conf.erb'
+    owner 'root'
+    group 'root'
+    mode '0644'
+    variables(
+      :application_name => application_name,
+      :params => params,
+      :environment => nil
+    )
+    if ::File.exists?("#{node[:apache][:dir]}/sites-enabled/#{application_name}.conf")
+      notifies :reload, "service[apache2]", :delayed
+    end
+  end
   
+  # Restart apache
+  apache_site "#{application_name}.conf" do
+    enable enable_setting
+  end
 end

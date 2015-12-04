@@ -1,0 +1,35 @@
+<?php
+# /index.php
+# Powered by SkyPHP (skyphp.org)
+
+$cravessl_domain = 's2.cravetickets.com' ;
+
+# error_reporting(E_ERROR & ~E_STRICT);
+
+#$down_for_maintenance = true;
+
+
+$skyphp_storage_path = '/var/www/skydata';
+
+
+$codebase_path = '/var/www/codebases/';
+
+include("{$codebase_path}crave-deploy/stacks/codebases.php");
+
+
+$skyphp_codebase_path = $codebase_path . 'skyphp/';
+
+/*
+$codebase_path_arr = array(
+        $codebase_path . 'jb-production/',
+        $codebase_path . 'newyearsevecentral.com/',
+        $codebase_path . 'crave-templates/',
+        $codebase_path . 'crave-inc/',
+        $codebase_path . 'cms/',
+        $codebase_path . 'jb-inc/',
+        $skyphp_codebase_path
+);
+*/
+
+
+include $skyphp_codebase_path . 'sky.php';
