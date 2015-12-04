@@ -85,7 +85,7 @@ node[:deploy].each do |application, deploy|
     'timessquarenewyears3' => { 'url' => 'git@github.com:SkyPHP/timessquarenewyears3.git', 'branch' => 'master' }
   }
 
-  base = '/var/www/codebase/'
+  base = '/var/www/codebases/'
   
   fullLists.each do |name, detail|
     Chef::Log.debug("Processing repository #{name}")
@@ -94,7 +94,7 @@ node[:deploy].each do |application, deploy|
         repository detail['url']
         revision detail['branch']
         enable_submodules true
-        action :checkout
+        action :sync
         ssh_wrapper "/root/git_wrapper.sh"
       end
     end

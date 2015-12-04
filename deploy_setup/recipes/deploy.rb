@@ -21,7 +21,7 @@ node[:deploy].each do |application, deploy|
     'nyephilly' => { 'url' => 'git@github.com:SkyPHP/nyephilly.git', 'branch' => '3.0-beta' },
     'timessquarenewyears3' => { 'url' => 'git@github.com:SkyPHP/timessquarenewyears3.git', 'branch' => 'master' }
   }
-  Dir.foreach('/var/www/codebase') do |folder|
+  Dir.foreach('/var/www/codebases') do |folder|
     next if folder == '.' or folder == '..'
     git "/var/www/codebase/#{folder}" do
       repository fullLists[folder][:url]
