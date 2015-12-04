@@ -47,14 +47,14 @@ node[:deploy].each do |application, deploy|
     mode '0400'
   end
 
-  ssh_known_hosts "github.com" do
-    hashed true
-  end
+  # ssh_known_hosts "github.com" do
+  #   hashed true
+  # end
 
-  ssh_config "github.com" do
-    options 'User' => 'git', 'IdentityFile' => '/root/.ssh/github_private_key'
-    user 'webapp'
-  end
+  # ssh_config "github.com" do
+  #   options 'User' => 'git', 'IdentityFile' => '/root/.ssh/github_private_key'
+  #   user 'webapp'
+  # end
 
   file "/root/git_wrapper.sh" do
     mode "0755"
