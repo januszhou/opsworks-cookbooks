@@ -41,7 +41,7 @@ node[:deploy].each do |application, deploy|
   end
 
   # Put ssh key
-  template "~/.ssh/github_private_key" do
+  template "/root/.ssh/github_private_key" do
     Chef::Log.debug("Generating private key")
     source 'github_private_key.erb'
     mode '0400'
