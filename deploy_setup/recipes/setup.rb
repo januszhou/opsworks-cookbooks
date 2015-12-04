@@ -12,9 +12,9 @@ node[:deploy].each do |application, deploy|
     action :upgrade
   end
   
-  yum_package 'php-memcached' do
-    action :upgrade
-  end
+  # yum_package 'php-memcached' do
+  #   action :upgrade
+  # end
 
   # Setup php.ini
   # node['php']['directives'] = { :short_open_tag => 'On' , :display_errors => 'On'}
