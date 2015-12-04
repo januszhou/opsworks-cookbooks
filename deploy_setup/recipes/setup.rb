@@ -76,12 +76,12 @@ node[:deploy].each do |application, deploy|
   fullLists.each do |name, detail|
     Chef::Log.debug("Processing repository #{name}")
     if Dir.exists?(base + name) == false
-      git "/var/www/code" do
+      git "/var/www/codebase/" do
         remote detail[:url]
         repository detail[:url]
         revision detail[:branch]
         enable_submodules true
-        action :sync
+        action :checkout
         ssh_wrapper "ssh -i /root/.ssh/github_private_key"
       end
     end
