@@ -6,7 +6,7 @@ node[:deploy].each do |application, deploy|
   yum_package 'php-memcached'
 
   # Setup php.ini
-  node['php']['directives'] = { :short_open_tag => 'On' , :display_errors => 'On'}
+  # node['php']['directives'] = { :short_open_tag => 'On' , :display_errors => 'On'}
 
   # Create folder
   directory "/var/www/codebase" do
