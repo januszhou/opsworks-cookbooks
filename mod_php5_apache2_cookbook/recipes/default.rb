@@ -44,7 +44,7 @@ case node[:platform]
 
 
 
-    node.set['php']['packages'] = ['php56w', 'php56w-devel', 'php56w-cli', 'php56w-snmp', 'php56w-soap', 'php56w-xml', 'php56w-xmlrpc', 'php56w-process', 'php56w-mysqlnd', 'php56w-pecl-memcache', 'php56w-opcache', 'php56w-pdo', 'php56w-imap', 'php56w-mbstring', 'php56w-intl', 'php56w-mcrypt']
+    node.set['php']['packages'] = ['php54', 'php54-devel', 'php54-cli', 'php54-snmp', 'php54-soap', 'php54-xml', 'php54-xmlrpc', 'php54-process', 'php54-mysqlnd', 'php54-pecl-memcache', 'php54-opcache', 'php54-pdo', 'php54-imap', 'php54-mbstring', 'php54-intl', 'php54-mcrypt']
 
     include_recipe "build-essential"
     include_recipe "apache2::default"
