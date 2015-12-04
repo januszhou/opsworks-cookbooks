@@ -1,5 +1,10 @@
 node[:deploy].each do |application, deploy|
   # Install all necessary dependencies
+  yum_package 'php-pgsql' do
+    version '5.4.16'
+    action :upgrade
+  end
+
   yum_package 'php-gd' do
     action :upgrade
   end
