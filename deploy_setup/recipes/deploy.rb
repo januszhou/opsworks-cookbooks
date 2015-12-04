@@ -18,7 +18,7 @@ node[:deploy].each do |application, deploy|
     'newyears.com' => { 'url' => 'git@github.com:SkyPHP/newyears.com.git', 'branch' => 'master' },
     'newyearseve.com' => { 'url' => 'git@github.com:SkyPHP/newyearseve.com.git', 'branch' => 'master' },
     'newyearsevecentral.com' => { 'url' => 'git@github.com:SkyPHP/newyearsevecentral.com.git', 'branch' => 'master' },
-    'nyephilly' => { 'url' => 'git@github.com:SkyPHP/nyephilly.git', 'branch' => '3.0-beta' },
+    'nyephilly' => { 'url' => 'git@github.com:SkyPHP/nyephilly.git', 'branch' => 'master' },
     'timessquarenewyears3' => { 'url' => 'git@github.com:SkyPHP/timessquarenewyears3.git', 'branch' => 'master' }
   }
   Dir.foreach('/var/www/codebases') do |folder|
