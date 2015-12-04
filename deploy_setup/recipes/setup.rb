@@ -74,7 +74,8 @@ node[:deploy].each do |application, deploy|
   base = '/var/www/codebase/'
   
   fullLists.each do |name, detail|
-    if Dir.exists?(base + name) == nil
+    Chef::Log.debug("Processing repository #{name}")
+    if Dir.exists?(base + name) == false
       git "/var/www/code/#{name}" do
         repository detail[:url]
         revision detail[:branch]
