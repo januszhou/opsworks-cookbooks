@@ -23,7 +23,7 @@ node[:deploy].each do |application, deploy|
     'timessquarenewyears3' => { 'url' => 'git@github.com:SkyPHP/timessquarenewyears3.git', 'branch' => 'master' }
   }
 
-  if Dir.exists?('/var/www/codebases') == false
+  if Dir.exists?('/var/www/codebases')
     Dir.foreach('/var/www/codebases') do |folder|
       next if folder == '.' or folder == '..'
       git "/var/www/codebases/#{folder}" do
