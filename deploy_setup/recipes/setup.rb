@@ -1,13 +1,4 @@
 node[:deploy].each do |application, deploy|
-  # Install all necessary dependencies
-  # yum_package ['php.x86_64','php-cli.x86_64','php-common.x86_64','php-devel.x86_64','php-gd.x86_64','php-mbstring.x86_64','php-mcrypt.x86_64','php-pear.noarch','php-pear-Auth-SASL.noarch','php-pear-DB.noarch','php-pear-HTML-Common.noarch','php-pear-Mail-Mime.noarch','php-pear-XML-Parser.noarch','php-pecl-memcache.x86_64','php-process.x86_64','php-xml.x86_64','php-xmlrpc.x86_64'] do 
-  #   action :remove
-  # end
-
-  # yum_package ['httpd.x86_64','httpd-tools.x86_64'] do 
-  #   action :remove
-  # end
-
   execute 'sudo yum -y remove php*'
   execute 'sudo yum -y remove httpd*'
 
@@ -26,10 +17,6 @@ node[:deploy].each do |application, deploy|
     action :upgrade
   end
 
-  # yum_package 'php54-memcache' do
-  #   action :upgrade
-  # end
-
   yum_package 'php54-pecl-memcache' do
     action :upgrade
   end
@@ -37,10 +24,6 @@ node[:deploy].each do |application, deploy|
   yum_package 'php54-pecl-memcached' do
     action :upgrade
   end
-
-
-  # Setup php.ini
-  # node['php']['directives'] = { :short_open_tag => 'On' , :display_errors => 'On'}
 
   # Create folder
   directory "/var/www/codebases" do
@@ -184,4 +167,8 @@ node[:deploy].each do |application, deploy|
   apache_site "#{application_name}.conf" do
     enable enable_setting
   end
+
+  # start apache
+  execute 'sudo apachectl start'
+  execute 'sudo apachectl restart'
 end
