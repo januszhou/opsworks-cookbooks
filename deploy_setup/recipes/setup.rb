@@ -13,26 +13,31 @@ node[:deploy].each do |application, deploy|
 
   execute 'sudo yum -y install php54'
   execute 'sudo yum -y install httpd24'
-  
+
   # yum_package ['httpd24', 'php54'] do 
   #   action :upgrade
   # end
 
-  yum_package 'php-gd' do
+  yum_package 'php54-gd' do
     action :upgrade
   end
 
-  yum_package 'php-pgsql' do
+  yum_package 'php54-pgsql' do
     action :upgrade
   end
 
-  yum_package 'php-memcache' do
+  yum_package 'php54-memcache' do
     action :upgrade
   end
 
-  # yum_package 'php-memcached' do
-  #   action :upgrade
-  # end
+  yum_package 'php54-pecl-memcache' do
+    action :upgrade
+  end
+
+  yum_package 'php54-pecl-memcached' do
+    action :upgrade
+  end
+
 
   # Setup php.ini
   # node['php']['directives'] = { :short_open_tag => 'On' , :display_errors => 'On'}
