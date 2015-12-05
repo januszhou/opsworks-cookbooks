@@ -21,6 +21,12 @@ node[:deploy].each do |application, deploy|
     'nyephilly' => { 'url' => 'git@github.com:SkyPHP/nyephilly.git', 'branch' => 'master' },
     'timessquarenewyears3' => { 'url' => 'git@github.com:SkyPHP/timessquarenewyears3.git', 'branch' => 'master' }
   }
+
+  directory "/var/www/codebases" do
+    mode 0755
+    action :create
+  end
+
   Dir.foreach('/var/www/codebases') do |folder|
     next if folder == '.' or folder == '..'
     git "/var/www/codebases/#{folder}" do
