@@ -1,7 +1,12 @@
 node[:deploy].each do |application, deploy|
   # Install all necessary dependencies
-  execute 'sudo yum remove httpd* php*'
-  execute 'sudo yum install httpd24 php54'
+  yum_package ['httpd*', 'php*'] do 
+    action :purge
+  end
+
+  yum_package ['httpd24', 'php54'] do 
+    action :upgrade
+  end
 
   yum_package 'php-gd' do
     action :upgrade
