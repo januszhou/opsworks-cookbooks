@@ -26,9 +26,9 @@ node[:deploy].each do |application, deploy|
     action :upgrade
   end
 
-  yum_package 'php54-memcache' do
-    action :upgrade
-  end
+  # yum_package 'php54-memcache' do
+  #   action :upgrade
+  # end
 
   yum_package 'php54-pecl-memcache' do
     action :upgrade
