@@ -1,11 +1,11 @@
 node[:deploy].each do |application, deploy|
   # Install all necessary dependencies
   yum_package ['php.x86_64','php-cli.x86_64','php-common.x86_64','php-devel.x86_64','php-gd.x86_64','php-mbstring.x86_64','php-mcrypt.x86_64','php-pear.noarch','php-pear-Auth-SASL.noarch','php-pear-DB.noarch','php-pear-HTML-Common.noarch','php-pear-Mail-Mime.noarch','php-pear-XML-Parser.noarch','php-pecl-memcache.x86_64','php-process.x86_64','php-xml.x86_64','php-xmlrpc.x86_64'] do 
-    action :purge
+    action :remove
   end
 
   yum_package ['httpd.x86_64','httpd-tools.x86_64'] do 
-    action :purge
+    action :remove
   end
 
   yum_package ['httpd24', 'php54'] do 
