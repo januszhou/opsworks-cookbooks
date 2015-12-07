@@ -29,6 +29,8 @@ node[:deploy].each do |application, deploy|
       git "/var/www/codebases/#{folder}" do
         repository fullLists[folder]['url']
         checkout_branch fullLists[folder]['branch']
+        revision fullLists[folder]['branch']
+        enable_checkout false
         action :sync
         ssh_wrapper "/root/git_wrapper.sh"
       end
