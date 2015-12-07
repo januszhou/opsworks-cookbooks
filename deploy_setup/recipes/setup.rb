@@ -1,26 +1,33 @@
 node[:deploy].each do |application, deploy|
-  # Install all necessary dependencies
-  execute 'sudo yum remove httpd* php*'
-  execute 'sudo yum install httpd24 php54'
+  execute 'sudo yum -y remove php*'
+  execute 'sudo yum -y remove httpd*'
 
-  yum_package 'php-gd' do
-    action :upgrade
-  end
+  execute 'sudo yum -y install php54'
+  execute 'sudo yum -y install httpd24'
 
-  yum_package 'php-pgsql' do
-    action :upgrade
-  end
-
-  yum_package 'php-memcache' do
-    action :upgrade
-  end
-
-  # yum_package 'php-memcached' do
+  # yum_package ['httpd24', 'php54'] do 
   #   action :upgrade
   # end
 
-  # Setup php.ini
-  # node['php']['directives'] = { :short_open_tag => 'On' , :display_errors => 'On'}
+  yum_package 'php54-gd' do
+    action :upgrade
+  end
+
+  yum_package 'php54-pgsql' do
+    action :upgrade
+  end
+
+  yum_package 'php54-mcrypt' do
+    action :upgrade
+  end
+
+  yum_package 'php54-pecl-memcache' do
+    action :upgrade
+  end
+
+  yum_package 'php54-pecl-memcached' do
+    action :upgrade
+  end
 
   # Create folder
   directory "/var/www/codebases" do
@@ -164,4 +171,8 @@ node[:deploy].each do |application, deploy|
   apache_site "#{application_name}.conf" do
     enable enable_setting
   end
+
+  # start apache
+  execute 'sudo apachectl start'
+  execute 'sudo apachectl restart'
 end

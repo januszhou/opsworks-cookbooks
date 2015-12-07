@@ -1,4 +1,5 @@
 node[:deploy].each do |application, deploy|
+
   fullLists = {
     'skyphp' => { 'url' => 'git@github.com:SkyPHP/skyphp.git', 'branch' => '3.0-beta' },
     'cms' => { 'url' => 'git@github.com:SkyPHP/cms.git', 'branch' => '3.0' },
@@ -21,13 +22,16 @@ node[:deploy].each do |application, deploy|
     'nyephilly' => { 'url' => 'git@github.com:SkyPHP/nyephilly.git', 'branch' => 'master' },
     'timessquarenewyears3' => { 'url' => 'git@github.com:SkyPHP/timessquarenewyears3.git', 'branch' => 'master' }
   }
-  Dir.foreach('/var/www/codebases') do |folder|
-    next if folder == '.' or folder == '..'
-    git "/var/www/codebases/#{folder}" do
-      repository fullLists[folder]['url']
-      checkout_branch fullLists[folder]['branch']
-      action :sync
-      ssh_wrapper "/root/git_wrapper.sh"
+
+  if Dir.exists?('/var/www/codebases')
+    Dir.foreach('/var/www/codebases') do |folder|
+      next if folder == '.' or folder == '..'
+      git "/var/www/codebases/#{folder}" do
+        repository fullLists[folder]['url']
+        checkout_branch fullLists[folder]['branch']
+        action :sync
+        ssh_wrapper "/root/git_wrapper.sh"
+      end
     end
   end
 end
