@@ -95,7 +95,7 @@ node[:deploy].each do |application, deploy|
     if Dir.exists?(base + name) == false
       git "#{base}#{name}" do
         repository detail['url']
-        revision detail['branch']
+        checkout_branch detail['branch']
         enable_submodules true
         action :sync
         ssh_wrapper "/root/git_wrapper.sh"

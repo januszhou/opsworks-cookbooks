@@ -25,7 +25,7 @@ node[:deploy].each do |application, deploy|
     next if folder == '.' or folder == '..'
     git "/var/www/codebases/#{folder}" do
       repository fullLists[folder]['url']
-      revision fullLists[folder]['branch']
+      checkout_branch fullLists[folder]['branch']
       action :sync
       ssh_wrapper "/root/git_wrapper.sh"
     end
