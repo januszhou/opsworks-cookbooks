@@ -208,8 +208,4 @@ node[:deploy].each do |application, deploy|
   apache_site "#{application_name}.conf" do
     enable enable_setting
   end
-
-  # start apache
-  execute 'sudo apachectl start'
-  execute 'sudo apachectl restart'
 end
