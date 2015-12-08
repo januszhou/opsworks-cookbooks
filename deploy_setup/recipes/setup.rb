@@ -5,9 +5,9 @@ node[:deploy].each do |application, deploy|
   execute 'sudo yum -y install php54'
   execute 'sudo yum -y install httpd24'
 
-  # yum_package ['httpd24', 'php54'] do 
-  #   action :upgrade
-  # end
+  yum_package 'mod24_ssl' do
+    action :upgrade
+  end
 
   yum_package 'php54-gd' do
     action :upgrade
@@ -41,6 +41,16 @@ node[:deploy].each do |application, deploy|
   end
 
   directory "/var/www/html" do
+    mode 0755
+    action :create
+  end
+
+  directory "/var/www/cert" do
+    mode 0755
+    action :create
+  end
+
+  directory "/var/www/logs" do
     mode 0755
     action :create
   end
@@ -123,6 +133,31 @@ node[:deploy].each do |application, deploy|
     Chef::Log.debug("Generating htaccess")
     source 'htaccess.erb'
     mode '0777'
+  end
+
+  template "/var/www/cert/cravetickets.com.crt" do
+    source 'cravetickets.com.crt.erb'
+    mode '0644'
+  end
+
+  template "/var/www/cert/cravetickets.com.csr" do
+    source 'cravetickets.com.csr.erb'
+    mode '0644'
+  end
+
+  template "/var/www/cert/cravetickets.com.key" do
+    source 'cravetickets.com.key.erb'
+    mode '0644'
+  end
+
+  template "/var/www/cert/gd.crt" do
+    source 'gd.crt.erb'
+    mode '0644'
+  end
+
+  template "/etc/httpd/conf.d/httpd-vhosts.conf" do
+    source 'httpd-vhosts.conf.erb'
+    mode '0644'
   end
 
   # Process apache config
