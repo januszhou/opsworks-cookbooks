@@ -24,6 +24,7 @@ package 'apache2' do
   when 'debian'
     package_name 'apache2'
   end
+  not_if 'which httpd'
   action :install
 end
 
@@ -31,7 +32,7 @@ include_recipe 'apache2::service'
 
 service 'apache2' do
   service_name value_for_platform_family(
-    'rhel' => 'httpd',
+    'rhel' => 'httpd24',
     'debian' => 'apache2'
   )
   action :enable
