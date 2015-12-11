@@ -32,7 +32,7 @@ include_recipe 'apache2::service'
 
 service 'apache2' do
   service_name value_for_platform_family(
-    'rhel' => 'httpd24',
+    'rhel' => 'httpd',
     'debian' => 'apache2'
   )
   action :enable
