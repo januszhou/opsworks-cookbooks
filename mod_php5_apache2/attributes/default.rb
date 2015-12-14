@@ -43,16 +43,16 @@ when 'rhel'
     "php54-xmlrpc",
     "php54-gd",
     "php54-cli",
-    "php54-pear-Auth-SASL",
+    "php-pear-Auth-SASL",
     "php54-mcrypt",
     "php54-pecl-memcache",
-    "php54-pear",
-    "php54-pear-XML-Parser",
-    "php54-pear-DB",
-    "php54-pear-HTML-Common",
+    "php-pear",
+    "php-pear-XML-Parser",
+    "php-pear-DB",
+    "php-pear-HTML-Common",
     "php54",
     "php54-devel",
-    "php54-pear-Mail-Mime"
+    "php-pear-Mail-Mime"
   ]
 end
 
