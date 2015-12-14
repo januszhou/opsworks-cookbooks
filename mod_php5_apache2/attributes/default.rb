@@ -38,21 +38,21 @@ when 'debian'
   ]
 when 'rhel'
   packages = [
-    "php-xml",
-    "php-common",
-    "php-xmlrpc",
-    "php-gd",
-    "php-cli",
-    "php-pear-Auth-SASL",
-    "php-mcrypt",
-    "php-pecl-memcache",
-    "php-pear",
-    "php-pear-XML-Parser",
-    "php-pear-DB",
-    "php-pear-HTML-Common",
-    "php",
-    "php-devel",
-    "php-pear-Mail-Mime"
+    "php54-xml",
+    "php54-common",
+    "php54-xmlrpc",
+    "php54-gd",
+    "php54-cli",
+    "php54-pear-Auth-SASL",
+    "php54-mcrypt",
+    "php54-pecl-memcache",
+    "php54-pear",
+    "php54-pear-XML-Parser",
+    "php54-pear-DB",
+    "php54-pear-HTML-Common",
+    "php54",
+    "php54-devel",
+    "php54-pear-Mail-Mime"
   ]
 end
 
