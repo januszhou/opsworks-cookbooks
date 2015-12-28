@@ -4,7 +4,7 @@ node[:deploy].each do |application, deploy|
 
 	# install bower dependencies
 	execute "#{current}/node_modules/bower/bin/bower install --allow-root" do
-		cwd: current
+		cwd current
 	end
 
 	# link up into public
