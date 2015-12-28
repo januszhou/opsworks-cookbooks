@@ -1,9 +1,9 @@
 node[:deploy].each do |application, deploy|
 	base = "/srv/www/carve_cart/current"
 
-	directory "#{base}/current"
+	directory "#{base}"
 
-	execute "cd #{base}/current"
+	execute "cd #{base}"
 
 	# install bower dependencies
 	execute "#{base}/node_modules/bower/bin/bower install --allow-root"
