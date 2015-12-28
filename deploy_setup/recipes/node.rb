@@ -1,5 +1,5 @@
 node[:deploy].each do |application, deploy|
-	base = node["deploy"]["appshortname"]["deploy_to"]
+	base = node["deploy"]["carve-cart"]["deploy_to"]
 	directory "#{base}/current"
 
 	# install bower dependencies
