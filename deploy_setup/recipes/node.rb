@@ -1,5 +1,5 @@
 node[:deploy].each do |application, deploy|
-	base = "/srv/www/crave_cart"
+	base = "/srv/www/carve_cart"
 	directory "#{base}/current"
 
 	# install bower dependencies
