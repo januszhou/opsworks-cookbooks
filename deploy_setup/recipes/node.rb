@@ -9,6 +9,6 @@ node[:deploy].each do |application, deploy|
 
 	# link up into public
 	link "#{current}/public/bower_components" do
-		to "bower_components"
+		to "#{current}/bower_components"
 	end
 end
