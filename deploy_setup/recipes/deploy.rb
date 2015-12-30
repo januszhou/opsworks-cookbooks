@@ -33,8 +33,16 @@ node[:deploy].each do |application, deploy|
         action :sync
         ssh_wrapper "/root/git_wrapper.sh"
       end
+    end
+  end
+  
+  if Dir.exists?('/var/www/codebases')
+    Dir.foreach('/var/www/codebases') do |folder|
+      next if folder == '.' or folder == '..'
       execute "cd /var/www/codebases/#{folder}"
       execute "git checkout #{fullLists[folder]['branch']}"
     end
   end
+  
+       
 end
