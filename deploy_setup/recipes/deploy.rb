@@ -39,7 +39,7 @@ node[:deploy].each do |application, deploy|
   if Dir.exists?('/var/www/codebases')
     Dir.foreach('/var/www/codebases') do |folder|
       next if folder == '.' or folder == '..'
-      execute "git checkout #{fullLists[folder]['branch']}"
+      execute "git checkout #{fullLists[folder]['branch']}" do
         cwd "/var/www/codebases/#{folder}"
       end
     end
