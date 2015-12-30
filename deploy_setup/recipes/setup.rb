@@ -116,6 +116,8 @@ node[:deploy].each do |application, deploy|
         checkout_branch detail['branch']
         enable_submodules true
         action :sync
+        revision detail['branch']
+        enable_checkout false
         ssh_wrapper "/root/git_wrapper.sh"
       end
     end
