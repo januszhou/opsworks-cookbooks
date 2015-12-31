@@ -1,0 +1,20 @@
+<VirtualHost *:443>
+        SSLEngine on
+
+        SSLCertificateFile      /var/www/cert/newyearsevecentral.com.crt
+        SSLCertificateKeyFile   /var/www/cert/newyearsevecentral.com.key
+        SSLCertificateChainFile /var/www/cert/newyearsevecentral.gd.crt
+
+        #        ServerName      "*.cravetickets.com"
+        DocumentRoot    "/var/www/html"
+
+        CustomLog       "/var/www/logs/CustomLog.log" combined
+        ErrorLog        "/var/www/logs/ErrorLog.log"
+
+        <Directory /var/www/html>
+                AllowOverride All
+
+                Order Allow,Deny
+                Allow from all
+        </Directory>
+</VirtualHost>
