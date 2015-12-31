@@ -147,12 +147,12 @@ node[:deploy].each do |application, deploy|
   end
 
   template "/var/www/cert/newyearsevecentral.gd.crt" do
-    source 'newyearsevecentral.gd.erb'
+    source 'newyearsevecentral.gd.crt.erb'
     mode '0644'
   end
 
   template "/etc/httpd/conf.d/httpd-vhosts.conf" do
-    source 'httpd-vhosts.conf.erb'
+    source 'newyearseve-httpd-vhosts.conf.erb'
     mode '0644'
   end
 
