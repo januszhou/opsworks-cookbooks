@@ -141,11 +141,6 @@ node[:deploy].each do |application, deploy|
     mode '0644'
   end
 
-  template "/var/www/cert/newyearsevecentral.com.csr" do
-    source 'newyearsevecentral.csr.erb'
-    mode '0644'
-  end
-
   template "/var/www/cert/newyearsevecentral.com.key" do
     source 'newyearsevecentral.key.erb'
     mode '0644'
