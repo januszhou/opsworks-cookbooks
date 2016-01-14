@@ -103,7 +103,8 @@ node[:deploy].each do |application, deploy|
     'newyearsevecentral.com' => { 'url' => 'git@github.com:SkyPHP/newyearsevecentral.com.git', 'branch' => 'master' },
     'nyephilly' => { 'url' => 'git@github.com:SkyPHP/nyephilly.git', 'branch' => 'master' },
     'timessquarenewyears3' => { 'url' => 'git@github.com:SkyPHP/timessquarenewyears3.git', 'branch' => 'master' },
-    'barcrawls' => { 'url' => 'git@github.com:SkyPHP/barcrawls.git', 'branch' => '3.0' }
+    'barcrawls' => { 'url' => 'git@github.com:SkyPHP/barcrawls.git', 'branch' => '3.0' },
+    'vipclubtour' => { 'url' => 'git@github.com:SkyPHP/vipclubtour.git', 'branch' => 'master' }
   }
 
   base = '/var/www/codebases/'
@@ -119,6 +120,15 @@ node[:deploy].each do |application, deploy|
         revision detail['branch']
         enable_checkout false
         ssh_wrapper "/root/git_wrapper.sh"
+      end
+    end
+  end
+
+  if Dir.exists?('/var/www/codebases')
+    Dir.foreach('/var/www/codebases') do |folder|
+      next if folder == '.' or folder == '..'
+      execute "git checkout #{fullLists[folder]['branch']}" do
+        cwd "/var/www/codebases/#{folder}"
       end
     end
   end
