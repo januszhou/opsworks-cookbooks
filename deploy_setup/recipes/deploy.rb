@@ -25,19 +25,6 @@ node[:deploy].each do |application, deploy|
     'vipclubtour' => { 'url' => 'git@github.com:SkyPHP/vipclubtour.git', 'branch' => 'master' }
   }
 
-  # if Dir.exists?('/var/www/codebases')
-  #   Dir.foreach('/var/www/codebases') do |folder|
-  #     next if folder == '.' or folder == '..'
-  #     git "/var/www/codebases/#{folder}" do
-  #       repository fullLists[folder]['url']
-  #       checkout_branch fullLists[folder]['branch']
-  #       revision fullLists[folder]['branch']
-  #       action :sync
-  #       ssh_wrapper "/root/git_wrapper.sh"
-  #     end
-  #   end
-  # end
-
   if Dir.exists?('/var/www/codebases')
     fullLists.each do |name, detail|
       git "/var/www/codebases/#{name}" do
