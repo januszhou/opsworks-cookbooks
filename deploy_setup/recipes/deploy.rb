@@ -24,14 +24,28 @@ node[:deploy].each do |application, deploy|
     'barcrawls' => { 'url' => 'git@github.com:SkyPHP/barcrawls.git', 'branch' => '3.0' }
   }
 
+  # if Dir.exists?('/var/www/codebases')
+  #   Dir.foreach('/var/www/codebases') do |folder|
+  #     next if folder == '.' or folder == '..'
+  #     git "/var/www/codebases/#{folder}" do
+  #       repository fullLists[folder]['url']
+  #       checkout_branch fullLists[folder]['branch']
+  #       revision fullLists[folder]['branch']
+  #       action :sync
+  #       ssh_wrapper "/root/git_wrapper.sh"
+  #     end
+  #   end
+  # end
+
   if Dir.exists?('/var/www/codebases')
-    Dir.foreach('/var/www/codebases') do |folder|
-      next if folder == '.' or folder == '..'
-      git "/var/www/codebases/#{folder}" do
-        repository fullLists[folder]['url']
-        checkout_branch fullLists[folder]['branch']
-        revision fullLists[folder]['branch']
+    fullLists.each do |name, detail|
+      git "/var/www/codebases/#{name}" do
+        repository detail['url']
+        checkout_branch detail['branch']
+        enable_submodules true
         action :sync
+        revision detail['branch']
+        enable_checkout false
         ssh_wrapper "/root/git_wrapper.sh"
       end
     end
